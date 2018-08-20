@@ -1,0 +1,14 @@
+{
+    "description": "Zaawansowane programowanie aplikacji internetowych",
+    "version": "0.0.1",
+    "require": {
+        "kint-php/kint": "2.*"
+    },
+    "autoload": {
+        "psr-4": {
+    			   "": "class/",
+             "Config\\": "config/",
+             "Message\\": "message/"
+		    }
+    }
+}
