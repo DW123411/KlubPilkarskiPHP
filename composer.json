@@ -8,7 +8,7 @@
         "psr-4": {
     			   "": "class/",
              "Config\\": "config/",
-             "Message\\": "message/"
+             "Messages\\": "messages/"
 		    }
     }
 }
