@@ -29,7 +29,7 @@
 		echo 'Błąd usuwania tabeli produkty';
 	}
 
-  $query = 'DROP TABLE IF EXISTS `kategorie';
+  $query = 'DROP TABLE IF EXISTS `kategorie`';
 	try
 	{
 		$pdo->exec($query);
