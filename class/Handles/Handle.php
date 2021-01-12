@@ -8,6 +8,7 @@
     protected $pdo;
     protected static $singletons = array();
     protected function __clone() {}
+	  protected function __construct() {}      
     public static function getSingleton() {
         $className = get_called_class();
         if(!isset(self::$singletons[$className]) || self::$singletons[$className] === null) {

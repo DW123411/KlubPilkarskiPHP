@@ -8,6 +8,7 @@
     final class Config extends Conf {
         public static $name             = '';     // nazwa aplikacji
         public static $subdir           = '';     // podfolder projektu
+        public static $port             = '';
         public static $protocol         = '';     // protokół aplikacji
         public static $adminEmail       = '';     // email administratora
     }

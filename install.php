@@ -179,6 +179,20 @@
 	{
 		echo 'Błąd dodawania danych do tabeli kategorie';
 	}
+
+
+	try
+	{
+		$stmt = $pdo -> prepare('CREATE VIEW `ilosc_produktow` AS
+    SELECT `id_kategorii`, count(id) AS `ilosc` FROM produkty GROUP BY `id_kategorii`');
+		$stmt -> execute();
+	}
+	catch(\PDOException $e)
+	{
+		echo 'Błąd dodawania danych do tabeli kategorie';
+	}
+
+
   echo "<b>Instalacja aplikacji zakończona!</b>"
 ?>
 </body>

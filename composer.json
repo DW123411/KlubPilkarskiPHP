@@ -2,7 +2,9 @@
     "description": "Zaawansowane programowanie aplikacji internetowych",
     "version": "0.0.1",
     "require": {
-        "kint-php/kint": "2.*"
+        "smarty/smarty": "3.*",
+        "kint-php/kint": "2.*",
+        "altorouter/altorouter": "1.1.0"
     },
     "autoload": {
         "psr-4": {

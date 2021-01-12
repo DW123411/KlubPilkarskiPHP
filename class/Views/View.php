@@ -1,10 +1,16 @@
 <?php
 	namespace Views;
+	use \Smarty;
+
 
   /**
    * abstrakcyjna klasa widoku
    */
 	abstract class View {
+	/**
+     * referencja do obiektu smarty
+     */
+		protected $smarty;
 		/**
 		 * szablon widoku
 		 */
@@ -20,10 +26,17 @@
 		/**
 		 * kolekcja globalnych plików dołączanych do każdego szablonu
 		 */
-    protected $globalJS = array();
-    protected $globalCSS = array('custom');
+    protected $globalJS = array('external/jquery',
+								'external/bootstrap',
+								'external/datatables',
+								'datatables-custom',
+                                'environment'
+								);
+    protected $globalCSS = array('external/bootstrap',
+								 'custom');
 
-		public function  __construct() {
+    	public function  __construct() {
+			$this->smarty = new Smarty();
 			$this->set('subdir', '/'.\Config\Application\Config::$subdir);
 			$this->set('protocol', \Config\Application\Config::$protocol);
 		}
@@ -33,7 +46,7 @@
      */
     public function setTemplate($name) {
  			$path='./templates/'; //DIRECTORY_SEPARATOR
- 			$path.=$name.'.html.php';
+ 			$path.=$name.'.html.tpl';
       $this->template = $path;
  		}
 		/**
@@ -41,18 +54,18 @@
 		 */
 		public function render() {
 			if(!isset($this->template))
-				throw new \Exceptions\TemplateNotFound();
+				return;
       $this->set('jsFile', $this->js);
       $this->set('cssFile', $this->css);
 			try {
 				if(is_file($this->template))
-					require_once($this->template);
+					$this->smarty->display($this->template);
 				else {
 						throw new \Exceptions\TemplateNotFound(null, $this->template);
 				}
 			}
 			catch(\Exception $e) {
-				throw new \Exceptions\TemplateNotFound($e, $this->template);
+				d($e);//throw new \Exceptions\TemplateNotFound($e, $this->template);
 			}
 		}
 		/**
@@ -68,15 +81,14 @@
 		 * @param $value wartość
 		 */
 		public function set($name, $value) {
-			$this->$name = $value;
+			$this->smarty->assign($name, $value);
 		}
 		/**
 		 * pobranie zmiennej widoku
 		 * @param String $name nazwa zmiennej
 		 */
 		public function get($name) {
-      if(isset($this->$name))
-          return $this->$name;
+			return $this->smarty->get_template_vars($name);
 		}
 		/**
 		 * skojarzenie kolekcji zmiennych
@@ -85,7 +97,7 @@
     public function setData($data){
       if(isset($data) && is_array($data))
       foreach ($data as $key => $value)
-        $this->$key = $value;
+        $this->set($key, $value);
     }
 
 

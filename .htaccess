@@ -1,22 +1,8 @@
 #włączenie mod_rewrite
-Options +FollowSymLinks
+#Options +FollowSymLinks
 RewriteEngine On
+
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-
-RewriteRule ^/?$ index.php?controller=Products&action=showAll [L]
-
-RewriteRule ^kategoria/?$ index.php?controller=Category&action=showAll [L]
-RewriteRule ^kategoria/usun/(\d+)/?$ index.php?controller=Category&action=delete&id=$1 [L]
-RewriteRule ^kategoria/formularz/?$ index.php?controller=Category&action=form [L]
-RewriteRule ^kategoria/dodaj/?$ index.php?controller=Category&action=insert [L]
-
-RewriteRule ^produkt/?$ index.php?controller=Product&action=showAll [L]
-RewriteRule ^produkt/kategoria/(\d*)?/?$ index.php?controller=Product&action=showcat&id=$1 [L]
-RewriteRule ^produkt/(\d+)/?$ index.php?controller=Product&action=showOne&id=$1 [L]
-RewriteRule ^produkt/usun/(\d+)/?$ index.php?controller=Product&action=delete&id=$1 [L]
-RewriteRule ^produkt/formularz/?$ index.php?controller=Product&action=form [L]
-RewriteRule ^produkt/dodaj/?$ index.php?controller=Product&action=insert [L]
-
-ErrorDocument 404 http://localhost/00_przykladowy_projekt/404.html
+RewriteRule ^(.*)$ index.php [NC,L]
